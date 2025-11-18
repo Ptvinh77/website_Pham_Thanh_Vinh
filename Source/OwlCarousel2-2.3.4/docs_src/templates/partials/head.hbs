@@ -1,15 +1,14 @@
+{% raw %}
 <meta charset="utf-8">
 <meta name="msapplication-tap-highlight" content="no"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <meta name="description" content="{{default description pkg.description}}">
-{% raw %}
 <meta name="author" content="{{ pkg.author.name }}">
 
 <title>
   {{default title page.basename }} | {{ app.title }} | {{ pkg.version }}
 </title>
-{% endraw %}
 
 
 <!-- Stylesheets -->
@@ -30,3 +29,4 @@
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ assets }}/ico/apple-touch-icon-144-precomposed.png">
 <link rel="shortcut icon" href="{{ assets }}/ico/favicon.png">
 <link rel="shortcut icon" href="favicon.ico">
+{% endraw %}

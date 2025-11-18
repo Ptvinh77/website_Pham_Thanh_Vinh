@@ -8,6 +8,7 @@
 				<span></span><span></span><span></span>
 			</a>
 			<div class="nav-bar">
+				{% raw %}
 				<ul class="clearfix">
 					<li{{#is nav "home"}} class="active"{{/is}}>
 						<a href="/OwlCarousel2/index.html">Home</a>
@@ -19,12 +20,11 @@
 						<a href="/OwlCarousel2/docs/started-welcome.html">Docs</a>
 					</li>
 					<li>
-						{% raw %}
 						<a href="https://github.com/OwlCarousel2/OwlCarousel2/archive/{{ pkg.version }}.zip">Download</a>
 						<span class="download"></span>
-						{% endraw %}
 					</li>
 				</ul>
+				{% endraw %}
 			</div>
 		</div>
 	</div>
