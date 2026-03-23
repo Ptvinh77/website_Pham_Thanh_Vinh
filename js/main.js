@@ -25,10 +25,10 @@
             $('.portfolio__filter li').removeClass('active');
             $(this).addClass('active');
         });
-        if ($('.portfolio__gallery').length > 0) {
-            var containerEl = document.querySelector('.portfolio__gallery');
-            var mixer = mixitup(containerEl);
-        }
+        // if ($('.portfolio__gallery').length > 0) {
+        //     var containerEl = document.querySelector('.portfolio__gallery');
+        //     var mixer = mixitup(containerEl);
+        // }
     });
 
     /*------------------
@@ -165,16 +165,67 @@
     });
 
     /*------------------
+        Image Gallery Popup
+    --------------------*/
+    $('.gallery1').magnificPopup({
+        type: 'image',
+        gallery: {
+            enabled: true
+        }
+    });
+
+    $('.gallery2').magnificPopup({
+        type: 'image',
+        gallery: {
+            enabled: true
+        }
+    });
+
+    $('.gallery3').magnificPopup({
+        type: 'image',
+        gallery: {
+            enabled: true
+        }
+    });
+    $('.gallery4').magnificPopup({
+        type: 'image',
+        gallery: {
+            enabled: true
+        }
+    });
+    $('.gallery5').magnificPopup({
+        type: 'image',
+        gallery: {
+            enabled: true
+        }
+    });
+    $('.gallery6').magnificPopup({
+        type: 'image',
+        gallery: {
+            enabled: true
+        }
+    });
+    $('.gallery7').magnificPopup({
+        type: 'image',
+        gallery: {
+            enabled: true
+        }
+    });
+
+    /*------------------
         Counter
     --------------------*/
     $('.counter_num').each(function () {
+        // capture numeric target (in case we ever append a plus in HTML later)
+        var target = parseInt($(this).text(), 10) || 0;
         $(this).prop('Counter', 0).animate({
-            Counter: $(this).text()
+            Counter: target
         }, {
             duration: 4000,
             easing: 'swing',
             step: function (now) {
-                $(this).text(Math.ceil(now));
+                // append a "+" sign after the number
+                $(this).text(Math.ceil(now) + '+');
             }
         });
     });

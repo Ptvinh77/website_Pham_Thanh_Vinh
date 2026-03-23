@@ -22,6 +22,96 @@
     <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
+    <style>
+        .page {
+            position: relative;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.35s ease, visibility 0.35s ease;
+            height: 0;
+            overflow: hidden;
+        }
+        .page.active {
+            opacity: 1;
+            visibility: visible;
+            height: auto;
+        }
+
+        .portfolio__gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-auto-flow: row;
+            grid-auto-rows: auto;
+            gap: 20px;
+            align-items: start;
+            margin: 0;
+        }
+
+        .mix {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.35s ease, transform 0.35s ease;
+            width: 100%;
+            min-height: 340px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .mix.filter-hidden {
+            opacity: 0;
+            transform: translateY(18px);
+            pointer-events: none;
+            visibility: hidden;
+            min-height: 0;
+        }
+        .portfolio__item {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.35s ease, transform 0.35s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .portfolio__item__video {
+            min-height: 180px;
+            flex-shrink: 0;
+        }
+        .portfolio__item__text {
+            flex: 1;
+        }
+
+        .portfolio__gallery .col-lg-4,
+        .portfolio__gallery .col-md-6,
+        .portfolio__gallery .col-sm-6 {
+            width: auto !important;
+            max-width: none !important;
+            display: block !important;
+            flex: none !important;
+        }
+
+        .pagination__option {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+        }
+        .pagination__option a {
+            text-decoration: none;
+            color: white;
+            background: #2c1f47;
+            padding: 10px 14px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        .pagination__option a.active {
+            background: #4a2f7a;
+            font-weight: bold;
+        }
+        .pagination__option a.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -45,12 +135,10 @@
                             <ul>
                                 <li><a href="./index.html">Trang chủ</a></li>
                                 <li><a href="./about.html">Về tôi</a></li>
-                                <li><a href="./portfolio.html">Portfolio</a></li>
+                                <li><a href="./portfolio.html">Sản phẩm</a></li>
                                 <li><a href="./services.html">Kỹ năng</a></li>
-                                <li><a href="#">Hành trình</a>
+                                <li><a href="">Xem thêm</a>
                                     <ul class="dropdown">
-                                        <li><a href="./about.html">Về tôi</a></li>
-                                        <li><a href="./portfolio.html">Portfolio</a></li>
                                         <li><a href="./blog.html">Tầm nhìn</a></li>
                                         <li><a href="./blog-details.html">Quan điểm</a></li>
                                     </ul>
@@ -62,7 +150,7 @@
                             <a href="https://www.facebook.com/vinh.phamthanh.946/"><i class="fa fa-facebook"></i></a>
                             <a href="https://www.behance.net/vinhphmthnh"><i class="fa fa-behance"></i></a>
                             <a href="https://www.instagram.com/adtl_nmwhd/"><i class="fa fa-instagram"></i></a>
-                            <a href="https://www.youtube.com/@RogarDawn"><i class="fa fa-youtube-play"></i></a>
+                            <a href="https://www.youtube.com/@thanhvinh_marketer"><i class="fa fa-youtube-play"></i></a>
                         </div>
                     </div>
                 </div>
@@ -78,10 +166,10 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>About us</h2>
+                        <h2>SẢN PHẨM TIÊU BIỂU</h2>
                         <div class="breadcrumb__links">
-                            <a href="#">Home</a>
-                            <span>About</span>
+                            <a href="./index.html">Trang chủ</a>
+                            <span>Sản phẩm</span>
                         </div>
                     </div>
                 </div>
@@ -96,139 +184,340 @@
             <div class="row">
                 <div class="col-lg-12">
                     <ul class="portfolio__filter">
-                        <li class="active" data-filter="*">All</li>
-                        <li data-filter=".branding">Branding</li>
-                        <li data-filter=".digital-marketing">Digital marketing</li>
-                        <li data-filter=".web">Web</li>
-                        <li data-filter=".photography">Photography</li>
-                        <li data-filter=" .ecommerce">eCommerce</li>
+                        <li class="active" data-filter="*">Tất cả dự án</li>
+                        <li data-filter=".freelance">Freelance</li>
+                        <li data-filter=".doanh-nghiep">Dự án doanh nghiệp</li>
+                        <li data-filter=".ca-nhan">Dự án cá nhân</li>
+                        <li data-filter=".video">Video</li>
+                        <li data-filter=".image">Ảnh</li>
                     </ul>
                 </div>
             </div>
-            <div class="row portfolio__gallery">
-                <div class="col-lg-4 col-md-6 col-sm-6 mix branding">
-                    <div class="portfolio__item">
-                        <div class="portfolio__item__video set-bg" data-setbg="img/portfolio/portfolio-1.jpg">
-                            <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="play-btn video-popup"><i
-                                    class="fa fa-play"></i></a>
+            <div class="portfolio-container">
+                <div id="page1" class="page active">
+                    <div class="row portfolio__gallery">
+                        <div class="col-lg-4 col-md-6 col-sm-6 mix doanh-nghiep">
+                            <div class="portfolio__item">
+                                <div class="portfolio__item__video set-bg" data-setbg="img/work-1.jpg">
+                                    <a href="https://www.youtube.com/watch?v=KlOccTMz7WM" class="play-btn video-popup"><i
+                                            class="fa fa-play"></i></a>
+                                </div>
+                                <div class="portfolio__item__text">
+                                    <h4>Giải pháp lọc nước mặn cứu sống đồng bào</h4>
+                                    <ul>
+                                        <li>Layer Fresh</li>
+                                        <li>2024</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                        <div class="portfolio__item__text">
-                            <h4>VIP Auto Tires & Service</h4>
-                            <ul>
-                                <li>eCommerce</li>
-                                <li>Magento</li>
-                            </ul>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mix image">
+                            <div class="portfolio__item">
+                                <div class="portfolio__item__video portfolio__item__img set-bg" data-setbg="img/gallery1/IMG_1.jpg">
+                                    <a href="img/gallery1/IMG_1.jpg" class="gallery1">
+                                        <i class="fa fa-search"></i>
+                                    </a>
+                                    <a href="img/gallery1/IMG_2.jpg" class="gallery1"></a>
+                                    <a href="img/gallery1/IMG_3.jpg" class="gallery1"></a>
+                                </div>
+                                <div class="portfolio__item__text">
+                                    <h4>Chụp mẫu Lê Hằng</h4>
+                                    <span>Photography</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mix doanh-nghiep">
+                            <div class="portfolio__item">
+                                <div class="portfolio__item__video set-bg" data-setbg="img/screenshot_3.png">
+                                    <a href="https://www.youtube.com/watch?v=jIP9T06-9OA" class="play-btn video-popup"><i
+                                            class="fa fa-play"></i></a>
+                                </div>
+                                <div class="portfolio__item__text">
+                                    <h4>Giải Tennis Tranh Cúp The Best Solution Law</h4>
+                                    <ul>
+                                        <li>Layer Fresh</li>
+                                        <li>2024</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mix doanh-nghiep">
+                            <div class="portfolio__item">
+                                <div class="portfolio__item__video set-bg" data-setbg="img/screenshot_5.png">
+                                    <a href="https://www.youtube.com/watch?v=C_6I5FQn2Mw" class="play-btn video-popup"><i
+                                            class="fa fa-play"></i></a>
+                                </div>
+                                <div class="portfolio__item__text">
+                                    <h4>Địa điểm thi IELTS chính thức của IDP tại Cầu Giấy</h4>
+                                    <ul>
+                                        <li>Ielts Arena</li>
+                                        <li>2025</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mix doanh-nghiep">
+                            <div class="portfolio__item">
+                                <div class="portfolio__item__video set-bg" data-setbg="img/screenshot_12.png">
+                                    <a href="https://www.youtube.com/watch?v=KfPK0Oy2hpo" class="play-btn video-popup"><i
+                                            class="fa fa-play"></i></a>
+                                </div>
+                                <div class="portfolio__item__text">
+                                    <h4>IELTS Arena: Niềm Say Mê</h4>
+                                    <ul>
+                                        <li>Ielts Arena</li>
+                                        <li>2024</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mix freelance">
+                            <div class="portfolio__item">
+                                <div class="portfolio__item__video set-bg" data-setbg="img/screenshot_4.png">
+                                    <a href="https://www.youtube.com/watch?v=XcncURhBqNg" class="play-btn video-popup"><i
+                                            class="fa fa-play"></i></a>
+                                </div>
+                                <div class="portfolio__item__text">
+                                    <h4>Sứ mệnh của IVIE - Bác sĩ ơi</h4>
+                                    <ul>
+                                        <li>IVIE - Bác sĩ ơi</li>
+                                        <li>2024</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mix image">
+                            <div class="portfolio__item">
+                                <div class="portfolio__item__video portfolio__item__img set-bg top-bg" data-setbg="img/gallery3/8.1.jpg">
+                                    <a href="img/gallery3/8.1.jpg" class="gallery2">
+                                        <i class="fa fa-search"></i>
+                                    </a>
+                                    <a href="img/gallery3/10.jpg" class="gallery2"></a>
+                                </div>
+                                <div class="portfolio__item__text">
+                                    <h4>Mẫu Thành Vinh</h4>
+                                    <span>Photography</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mix doanh-nghiep">
+                            <div class="portfolio__item">
+                                <div class="portfolio__item__video set-bg" data-setbg="img/screenshot_11.png">
+                                    <a href="https://youtube.com/watch?v=45Nv40LPuHg" class="play-btn video-popup"><i
+                                            class="fa fa-play"></i></a>
+                                </div>
+                                <div class="portfolio__item__text">
+                                    <h4>IDP Animated video </h4>
+                                    <ul>
+                                        <li>Ielts Arena</li>
+                                        <li>2025</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mix image doanh-nghiep">
+                            <div class="portfolio__item">
+                                <div class="portfolio__item__video portfolio__item__img set-bg" data-setbg="img/gallery5/1.jpg">
+                                    <a href="img/gallery5/1.jpg" class="gallery5">
+                                        <i class="fa fa-search"></i>
+                                    </a>
+                                    <a href="img/gallery5/2.jpg" class="gallery5"></a>
+                                    <a href="img/gallery5/3.jpg" class="gallery5"></a>
+                                    <a href="img/gallery5/4.jpg" class="gallery5"></a>
+                                </div>
+                                <div class="portfolio__item__text">
+                                    <h4>Món phở tại Xin chào Cafe</h4>
+                                    <span>Photography</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mix freelance">
+                            <div class="portfolio__item">
+                                <div class="portfolio__item__video set-bg" data-setbg="img/screenshot_5.jpg">
+                                    <a href="https://www.youtube.com/watch?v=3T8fKPPk-QM&t=3s" class="play-btn video-popup"><i
+                                            class="fa fa-play"></i></a>
+                                </div>
+                                <div class="portfolio__item__text">
+                                    <h4>5 năm - 1 Hành trình mang sức khỏe đến toàn dân</h4>
+                                    <ul>
+                                        <li>IVIE - Bác sĩ ơi</li>
+                                        <li>2024</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mix doanh-nghiep">
+                            <div class="portfolio__item">
+                                <div class="portfolio__item__video set-bg" data-setbg="img/screenshot_6.jpg">
+                                    <a href="https://www.youtube.com/watch?v=Zj6XV4edh-E" class="play-btn video-popup"><i
+                                            class="fa fa-play"></i></a>
+                                </div>
+                                <div class="portfolio__item__text">
+                                    <h4>Máy lọc nước Ion Kiềm</h4>
+                                    <ul>
+                                        <li>Layer Fresh</li>
+                                        <li>2024</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mix image doanh-nghiep">
+                            <div class="portfolio__item">
+                                <div class="portfolio__item__video portfolio__item__img set-bg top-bg" data-setbg="img/menuxinchaocafe.jpg">
+                                    <a href="img/menuxinchaocafe.jpg" class="gallery6">
+                                        <i class="fa fa-search"></i>
+                                   </a>
+                                    <a href="img/menuxinchaocafe.jpg" class="gallery6"></a>
+                                </div>
+                                <div class="portfolio__item__text">
+                                    <h4>Menu Xin Chào Café</h4>
+                                    <span>Design</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 mix digital-marketing">
-                    <div class="portfolio__item">
-                        <div class="portfolio__item__video set-bg" data-setbg="img/portfolio/portfolio-2.jpg">
-                            <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="play-btn video-popup"><i
-                                    class="fa fa-play"></i></a>
+                <div id="page2" class="page">
+                    <div class="row portfolio__gallery">
+                        <div class="col-lg-4 col-md-6 col-sm-6 mix freelance">
+                            <div class="portfolio__item">
+                                <div class="portfolio__item__video set-bg" data-setbg="img/screenshot_6.png">
+                                    <a href="https://www.youtube.com/watch?v=vb5YwJkSVN8" class="play-btn video-popup"><i
+                                            class="fa fa-play"></i></a>
+                                </div>
+                                <div class="portfolio__item__text">
+                                    <h4>Giới thiệu Khu Đô thị Royal Vạn Phúc</h4>
+                                    <ul>
+                                        <li>Dự án này được làm theo yêu cầu của công ty, mặc dù chất lượng không tốt nhưng tôi vẫn muốn chia sẻ sẽ những sản phẩm dầu tay và hiện tại tôi đã khắc phục được điều đấy</li>
+                                        <li>2022</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                        <div class="portfolio__item__text">
-                            <h4>VIP Auto Tires & Service</h4>
-                            <span>Photography</span>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mix doanh-nghiep image">
+                            <div class="portfolio__item">
+                                <div class="portfolio__item__video portfolio__item__img set-bg" data-setbg="img/gallery4/1.jpg">
+                                    <a href="img/gallery4/1.jpg" class="gallery3">
+                                        <i class="fa fa-search"></i>
+                                    </a>
+                                    <a href="img/gallery4/2.jpg" class="gallery3"></a>
+                                    <a href="img/gallery4/3.jpg" class="gallery3"></a>
+                                    <a href="img/gallery4/4.jpg" class="gallery3"></a>
+                                    <a href="img/gallery4/5.jpg" class="gallery3"></a>
+                                    <a href="img/gallery4/6.jpg" class="gallery3"></a>  
+                                    <a href="img/gallery4/7.jpg" class="gallery3"></a>
+                                    <a href="img/gallery4/8.jpg" class="gallery3"></a>  
+                                    <a href="img/gallery4/9.jpg" class="gallery3"></a>
+                                    <a href="img/gallery4/10.jpg" class="gallery3"></a>
+                                    <a href="img/gallery4/11.jpg" class="gallery3"></a>
+                                    <a href="img/gallery4/12.jpg" class="gallery3"></a>
+                                    <a href="img/gallery4/13.jpg" class="gallery3"></a>
+                                </div>
+                                <div class="portfolio__item__text">
+                                    <h4>Không gian nhà hàng Shibuya Paradaisu</h4>
+                                    <span>Photography</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 mix web">
-                    <div class="portfolio__item">
-                        <div class="portfolio__item__video set-bg" data-setbg="img/portfolio/portfolio-3.jpg">
-                            <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="play-btn video-popup"><i
-                                    class="fa fa-play"></i></a>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mix doanh-nghiep">
+                            <div class="portfolio__item">
+                                <div class="portfolio__item__video set-bg" data-setbg="img/screenshot_7.png">
+                                    <a href="https://www.youtube.com/watch?v=U7_zjcDc6pY" class="play-btn video-popup"><i
+                                            class="fa fa-play"></i></a>
+                                </div>
+                                <div class="portfolio__item__text">
+                                    <h4>Tư vấn máy lọc nước ở một vị trí cao hơn</h4>
+                                    <ul>
+                                        <li>Layer Fresh</li>
+                                        <li>2024</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                        <div class="portfolio__item__text">
-                            <h4>VIP Auto Tires & Service</h4>
-                            <ul>
-                                <li>eCommerce</li>
-                                <li>Magento</li>
-                            </ul>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mix freelance">
+                            <div class="portfolio__item">
+                                <div class="portfolio__item__video set-bg" data-setbg="img/screenshot_2.png">
+                                    <a href="https://www.youtube.com/watch?v=cXnGcpuYP0s" class="play-btn video-popup"><i
+                                            class="fa fa-play"></i></a>
+                                </div>
+                                <div class="portfolio__item__text">
+                                    <h4>Hà Giang DISCOVERY MARATHON</h4>
+                                    <ul>
+                                        <li>Giải Discovery Marathon</li>
+                                        <li>2023</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 mix photography">
-                    <div class="portfolio__item">
-                        <div class="portfolio__item__video set-bg" data-setbg="img/portfolio/portfolio-4.jpg">
-                            <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="play-btn video-popup"><i
-                                    class="fa fa-play"></i></a>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mix doanh-nghiep">
+                            <div class="portfolio__item">
+                                <div class="portfolio__item__video set-bg" data-setbg="img/screenshot_8.png">
+                                    <a href="https://www.youtube.com/watch?v=1QsqWmf87gI" class="play-btn video-popup"><i
+                                            class="fa fa-play"></i></a>
+                                </div>
+                                <div class="portfolio__item__text">
+                                    <h4>Học viên 7.0 IELTS lần đầu tiết lộ Phương pháp học thực chiến</h4>
+                                    <ul>
+                                        <li>Ielts Arena</li>
+                                        <li>2025</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                        <div class="portfolio__item__text">
-                            <h4>VIP Auto Tires & Service</h4>
-                            <ul>
-                                <li>eCommerce</li>
-                                <li>Magento</li>
-                            </ul>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mix doanh-nghiep">
+                            <div class="portfolio__item">
+                                <div class="portfolio__item__video set-bg" data-setbg="img/screenshot_9.png">
+                                    <a href="https://www.youtube.com/watch?v=kozIkv3ZY_0" class="play-btn video-popup"><i
+                                            class="fa fa-play"></i></a>
+                                </div>
+                                <div class="portfolio__item__text">
+                                    <h4>Sứ mệnh R&D là gì?</h4>
+                                    <ul>
+                                        <li>Ielts Arena</li>
+                                        <li>2025</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 mix ecommerce">
-                    <div class="portfolio__item">
-                        <div class="portfolio__item__video set-bg" data-setbg="img/portfolio/portfolio-5.jpg">
-                            <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="play-btn video-popup"><i
-                                    class="fa fa-play"></i></a>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mix doanh-nghiep">
+                            <div class="portfolio__item">
+                                <div class="portfolio__item__video set-bg" data-setbg="img/screenshot_10.png">
+                                    <a href="https://www.youtube.com/watch?v=ae_GQfjWX-E" class="play-btn video-popup"><i
+                                            class="fa fa-play"></i></a>
+                                </div>
+                                <div class="portfolio__item__text">
+                                    <h4>"Học nhồi - quên nhanh”. Và đây là cách giải quyết</h4>
+                                    <ul>
+                                        <li>Ielts Arena</li>
+                                        <li>2025</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                        <div class="portfolio__item__text">
-                            <h4>VIP Auto Tires & Service</h4>
-                            <span>Photography</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 mix branding">
-                    <div class="portfolio__item">
-                        <div class="portfolio__item__video set-bg" data-setbg="img/portfolio/portfolio-6.jpg">
-                            <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="play-btn video-popup"><i
-                                    class="fa fa-play"></i></a>
-                        </div>
-                        <div class="portfolio__item__text">
-                            <h4>VIP Auto Tires & Service</h4>
-                            <ul>
-                                <li>eCommerce</li>
-                                <li>Magento</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 mix web">
-                    <div class="portfolio__item">
-                        <div class="portfolio__item__video set-bg" data-setbg="img/portfolio/portfolio-7.jpg">
-                            <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="play-btn video-popup"><i
-                                    class="fa fa-play"></i></a>
-                        </div>
-                        <div class="portfolio__item__text">
-                            <h4>VIP Auto Tires & Service</h4>
-                            <ul>
-                                <li>eCommerce</li>
-                                <li>Magento</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 mix photography">
-                    <div class="portfolio__item">
-                        <div class="portfolio__item__video set-bg" data-setbg="img/portfolio/portfolio-8.jpg">
-                            <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="play-btn video-popup"><i
-                                    class="fa fa-play"></i></a>
-                        </div>
-                        <div class="portfolio__item__text">
-                            <h4>VIP Auto Tires & Service</h4>
-                            <span>Photography</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 mix ecommerce">
-                    <div class="portfolio__item">
-                        <div class="portfolio__item__video set-bg" data-setbg="img/portfolio/portfolio-9.jpg">
-                            <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="play-btn video-popup"><i
-                                    class="fa fa-play"></i></a>
-                        </div>
-                        <div class="portfolio__item__text">
-                            <h4>VIP Auto Tires & Service</h4>
-                            <ul>
-                                <li>eCommerce</li>
-                                <li>Magento</li>
-                            </ul>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mix doanh-nghiep image">
+                            <div class="portfolio__item">
+                                <div class="portfolio__item__video portfolio__item__img set-bg" data-setbg="img/gallery6/1.jpg">
+                                    <a href="img/gallery6/1.jpg" class="gallery7">
+                                        <i class="fa fa-search"></i>
+                                    </a>
+                                    <a href="img/gallery6/2.jpg" class="gallery7"></a>
+                                    <a href="img/gallery6/3.jpg" class="gallery7"></a>
+                                    <a href="img/gallery6/4.jpg" class="gallery7"></a>
+                                    <a href="img/gallery6/5.jpg" class="gallery7"></a>
+                                    <a href="img/gallery6/6.jpg" class="gallery7"></a>  
+                                    <a href="img/gallery6/7.jpg" class="gallery7"></a>
+                                    <a href="img/gallery6/8.jpg" class="gallery7"></a>  
+                                    <a href="img/gallery6/9.jpg" class="gallery7"></a>
+                                    <a href="img/gallery6/10.jpg" class="gallery7"></a>
+                                    <a href="img/gallery6/11.jpg" class="gallery7"></a>
+                                    <a href="img/gallery6/12.jpg" class="gallery7"></a>
+                                    <a href="img/gallery6/13.jpg" class="gallery7"></a>
+                                </div>
+                                <div class="portfolio__item__text">
+                                    <h4>Khai trương Cafe Mộc Quỳnh cs Hải Dương</h4>
+                                    <span>Photography</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -236,13 +525,15 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="pagination__option">
-                        <a href="#" class="arrow__pagination left__arrow"><span class="arrow_left"></span> Prev</a>
-                        <a href="#" class="number__pagination">1</a>
-                        <a href="#" class="number__pagination">2</a>
-                        <a href="#" class="arrow__pagination right__arrow">Next <span class="arrow_right"></span></a>
+                        <a href="#" id="prevBtn" class="arrow__pagination left__arrow"><span class="arrow_left"></span> Prev</a>
+                        <a href="#" class="page-link active" data-page="1">1</a>
+                        <a href="#" class="page-link" data-page="2">2</a>
+                        <a href="#" id="nextBtn" class="arrow__pagination right__arrow">Next <span class="arrow_right"></span></a>
                     </div>
                 </div>
             </div>
+            <div id="filterResults" class="row portfolio__gallery" style="display:none; margin-top: 20px;"></div>
+            <div id="noResults" style="display:none; color:#fff; text-align:center; margin:20px 0;">Không có dự án phù hợp</div>
         </div>
     </section>
     <!-- Portfolio Section End -->
@@ -262,7 +553,7 @@
                             <a href="https://www.facebook.com/vinh.phamthanh.946/"><i class="fa fa-facebook"></i></a>
                             <a href="https://www.behance.net/vinhphmthnh"><i class="fa fa-behance"></i></a>
                             <a href="https://www.instagram.com/adtl_nmwhd/"><i class="fa fa-instagram"></i></a>
-                            <a href="https://www.youtube.com/@RogarDawn"><i class="fa fa-youtube-play"></i></a>
+                            <a href="https://www.youtube.com/@thanhvinh_marketer"><i class="fa fa-youtube-play"></i></a>
                         </div>
                     </div>
                 </div>
@@ -273,7 +564,7 @@
                         <div class="footer__option__item">
                             <h5>Về tôi</h5>
                             <p>"Hơn 2 năm trong ngành, kèm theo một số tư duy về Tài chính, tôi hiểu rằng việc tạo ra các giá trị thương hiệu lâu dài, bền vững là một điều cực kì quan trọng. Nếu bạn thấy đúng, thì có lẽ lựa chọn tôi là quyết định đúng đắn."</p>
-                            <a href="https://www.facebook.com/vinh.phamthanh.946/" class="read__more">Tìm hiểu thêm <span class="arrow_right"></span></a>
+                            <a href="https://www.facebook.com/vinh.phamthanh.946/" class="read__more" target="_blank" rel="noopener noreferrer">TÌM HIỂU THÊM <span class="arrow_right"></span></a>
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-3 col-sm-3">
@@ -297,7 +588,7 @@
                                 <input id="email" type="email" name="email" required /><br />
                                 <label for="message">Lời nhắn</label><br />
                                 <textarea id="message" name="message" placeholder="Lời nhắn" required></textarea><br />
-                                <button type="submit"><i class="fa fa-send"></i> Gửi</button>
+                                <button type="submit"><i class="fa fa-send"></i></button>
                             </form>
                         </div>
                     </div>
@@ -311,7 +602,7 @@
                             <script>
                                 document.write(new Date().getFullYear());
                             </script>
-                            Howl & Sophie
+                            Howl & Sophie <a href="https://colorlib.com" target="_blank">Colorlib</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </div>
                 </div>
@@ -329,6 +620,172 @@
     <script src="js/jquery.slicknav.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+    <script>
+        const pages = document.querySelectorAll('.page');
+        const pageLinks = document.querySelectorAll('.page-link');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const filterButtons = document.querySelectorAll('.portfolio__filter li');
+
+        let currentPage = 1;
+        let currentFilter = '*';
+        const totalPages = pages.length;
+
+        function setMixVisibility(mix, shouldShow) {
+            if (shouldShow) {
+                mix.style.display = '';
+                mix.classList.remove('filter-hidden');
+            } else {
+                mix.classList.add('filter-hidden');
+                const onTransitionEnd = () => {
+                    if (mix.classList.contains('filter-hidden')) {
+                        mix.style.display = 'none';
+                    }
+                    mix.removeEventListener('transitionend', onTransitionEnd);
+                };
+                mix.addEventListener('transitionend', onTransitionEnd);
+            }
+        }
+
+        function updatePortfolio() {
+            const paginationOption = document.querySelector('.pagination__option');
+            const noResults = document.getElementById('noResults');
+            const filterResults = document.getElementById('filterResults');
+            const isFilterMode = currentFilter !== '*';
+
+            if (isFilterMode) {
+                // 1. Hide pagination pages and show combined result container
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                    page.style.display = 'none';
+                });
+
+                let matched = 0;
+                filterResults.innerHTML = '';
+                filterResults.style.display = 'grid';
+
+                pages.forEach(page => {
+                    page.querySelectorAll('.mix').forEach(mix => {
+                        const category = Array.from(mix.classList).find(cls => ['freelance','doanh-nghiep','ca-nhan','video','image'].includes(cls));
+                        if (category === currentFilter) {
+                            const clone = mix.cloneNode(true);
+                            // Remove bootstrap grid column classes so CSS Grid handles layout:
+                            clone.classList.remove('col-lg-4', 'col-md-6', 'col-sm-6');
+                            clone.style.width = '';
+                            clone.style.display = '';
+                            clone.classList.remove('filter-hidden');
+                            clone.style.opacity = '0';
+                            clone.style.transform = 'translateY(18px)';
+                            clone.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+                            clone.style.transitionDelay = `${matched * 60}ms`;
+
+                            filterResults.appendChild(clone);
+                            window.requestAnimationFrame(() => {
+                                clone.style.opacity = '1';
+                                clone.style.transform = 'translateY(0)';
+                            });
+
+                            matched++;
+                        }
+                    });
+                });
+
+                paginationOption.style.display = 'none';
+                noResults.style.display = matched === 0 ? 'block' : 'none';
+                pageLinks.forEach(link => link.classList.remove('active'));
+                currentPage = 1;
+                prevBtn.classList.add('disabled');
+                nextBtn.classList.add('disabled');
+            } else {
+                filterResults.style.display = 'none';
+                let anyMatch = false;
+
+                pages.forEach((page, index) => {
+                    const isCurrent = (index + 1) === currentPage;
+                    page.classList.toggle('active', isCurrent);
+                    page.style.display = isCurrent ? '' : 'none';
+
+                    page.querySelectorAll('.mix').forEach(mix => {
+                        const category = Array.from(mix.classList).find(cls => ['freelance','doanh-nghiep','ca-nhan','video','image'].includes(cls));
+                        const show = (category === 'freelance' || category === 'doanh-nghiep' || category === 'ca-nhan' || category === 'video' || category === 'image' || currentFilter === '*');
+                        setMixVisibility(mix, show);
+                        if (show) anyMatch = true;
+                    });
+                });
+
+                paginationOption.style.display = 'flex';
+                noResults.style.display = anyMatch ? 'none' : 'block';
+                pageLinks.forEach(link => link.classList.toggle('active', Number(link.dataset.page) === currentPage));
+                prevBtn.classList.toggle('disabled', currentPage === 1);
+                nextBtn.classList.toggle('disabled', currentPage === totalPages);
+            }
+
+            filterButtons.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.filter === currentFilter);
+            });
+        }
+
+        function showPage(pageNumber) {
+            if (pageNumber < 1 || pageNumber > totalPages) return;
+            currentPage = pageNumber;
+            updatePortfolio();
+        }
+
+        function findFirstPageForFilter(filter) {
+            for (let i = 0; i < pages.length; i++) {
+                const page = pages[i];
+                const hasMatch = Array.from(page.querySelectorAll('.mix')).some(mix => {
+                    if (filter === '*') return true;
+                    return mix.classList.contains(filter);
+                });
+                if (hasMatch) return i + 1;
+            }
+            return 1;
+        }
+
+        function applyFilter(filter) {
+            currentFilter = filter;
+            if (filter === '*') {
+                currentPage = 1;
+                updatePortfolio();
+                return;
+            }
+
+            const firstPage = findFirstPageForFilter(filter);
+            currentPage = firstPage;
+            updatePortfolio();
+        }
+
+        pageLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                showPage(Number(this.dataset.page));
+            });
+        });
+
+        prevBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (currentPage > 1) showPage(currentPage - 1);
+        });
+
+        nextBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (currentPage < totalPages) showPage(currentPage + 1);
+        });
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const filter = this.dataset.filter === '*' ? '*' : this.dataset.filter.replace('.', '');
+                applyFilter(filter);
+            });
+        });
+
+        updatePortfolio();
+    </script>
 </body>
 
 </html>
+
+
+
+
